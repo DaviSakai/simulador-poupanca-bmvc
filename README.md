@@ -19,18 +19,20 @@ Ele foi feito para ajudar **iniciantes em investimentos** a compreenderem concei
 
 ## 🧱 Estrutura do Projeto
 
+```bash
 simulador-poupanca-bmvc/
 │
-├── main.py → servidor FastAPI que serve o app
+├── main.py              → servidor FastAPI que serve o app
 │
 ├── view/
-│ └── simulador.html → interface principal do simulador
+│   └── simulador.html    → interface principal do simulador
 │
 └── static/
-├── css/
-│ └── simulador.css → estilo visual moderno e responsivo
-└── js/
-└── simulador.js → lógica da simulação (juros e cálculos)
+    ├── css/
+    │   └── simulador.css → estilo visual moderno e responsivo
+    └── js/
+        └── simulador.js  → lógica da simulação (juros e cálculos)
+
 
 
 ---
