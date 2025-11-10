@@ -1,6 +1,6 @@
 # 💰 Simulador de Poupança Mensal — BMVC I
 
-Projeto desenvolvido por **Davi Sakai** para o módulo **BMVC**,  
+Projeto desenvolvido por **Davi Sakai** para o módulo **BMVC** de Orientação a Objetos,  
 com o objetivo de tornar a **educação financeira acessível** e intuitiva.
 
 ---
