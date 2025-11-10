@@ -32,7 +32,7 @@ simulador-poupanca-bmvc/
     │   └── simulador.css → estilo visual moderno e responsivo
     └── js/
         └── simulador.js  → lógica da simulação (juros e cálculos)
-
+```
 
 
 ---
