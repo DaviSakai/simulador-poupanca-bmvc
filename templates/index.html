@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulador de Poupança Mensal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1>Simulador de Poupança Mensal</h1>
+      <p class="subtitle">
+        Veja, em poucos segundos, quanto seu dinheiro pode crescer guardando um valor todo mês.
+        Sem fórmulas complicadas, em uma linguagem feita para iniciantes.
+      </p>
+      <div class="steps">
+        <div class="step">
+          <span class="step-number">1</span>
+          <p>Informe quanto consegue guardar por mês.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">2</span>
+          <p>Escolha por quanto tempo quer investir.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">3</span>
+          <p>Veja o total estimado, com e sem juros.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card card-form">
+      <h2>Preencha a simulação</h2>
+      <p class="hint">
+        Você não precisa saber nada de finanças: basta preencher os campos abaixo.
+      </p>
+
+      <form id="simulador-form">
+        <div class="form-group">
+          <label for="valorMensal">Quanto você pretende guardar por mês? <span class="required">*</span></label>
+          <input type="number" id="valorMensal" min="0" step="0.01" placeholder="Ex: 200" required>
+        </div>
+
+        <div class="form-group">
+          <label for="meses">Por quantos meses? <span class="required">*</span></label>
+          <input type="number" id="meses" min="1" max="600" step="1" placeholder="Ex: 24" required>
+          <small class="help">
+            Dica: 12 meses = 1 ano, 60 meses = 5 anos.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="taxa">Taxa de rendimento mensal (opcional)</label>
+          <input type="number" id="taxa" min="0" step="0.01" placeholder="Ex: 0,6">
+          <small class="help">
+            Use uma estimativa. Ex.: investimentos que rendem próximo ao CDI costumam ficar por volta de 0,5% a 1,0% ao mês.
+          </small>
+        </div>
+
+        <button type="submit" class="btn">Calcular simulação</button>
+      </form>
+
+      <p class="disclaimer">
+        <strong>Atenção:</strong> este simulador é educativo e apresenta valores aproximados.
+        Não substitui uma análise profissional nem simulações oficiais de instituições financeiras.
+      </p>
+    </section>
+
+    <section class="card card-result">
+      <h2>Resultado da sua simulação</h2>
+      <div id="mensagem-erro" class="alert hidden"></div>
+
+      <div id="resultado" class="resultado">
+        <p>
+          Comece preenchendo os dados ao lado. Aqui você verá, em linguagem simples, quanto
+          pode juntar ao longo do tempo.
+        </p>
+      </div>
+
+      <div class="contexto">
+        <h3>Como interpretar esses números?</h3>
+        <ul>
+          <li><strong>Sem juros:</strong> é o mínimo que você terá, apenas somando os depósitos.</li>
+          <li><strong>Com rendimento:</strong> é uma estimativa considerando que o dinheiro também trabalha por você.</li>
+          <li>Mais importante que o valor exato é o hábito de investir todos os meses.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      Desenvolvido por <strong>Davi Sakai</strong> para o módulo <strong>BMVC I</strong> —
+      projeto de educação financeira acessível.
+    </p>
+  </footer>
+
+  <!-- JS externo -->
+  <script src="js/script.js"></script>
+</body>
+</html>
