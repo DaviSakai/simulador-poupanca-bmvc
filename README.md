@@ -39,13 +39,6 @@ simulador-poupanca-bmvc/
 
 A interface foi inspirada em simuladores de grandes portais como **iDinheiro**, **Serasa** e **BTG Pactual**,  
 mantendo uma identidade leve, educativa e profissional.
-
-📸 **Prévia visual:**
-
-![Preview do Simulador](https://github.com/DaviSakai/simulador-poupanca-bmvc/assets/preview.png)
-
-*(adicione uma captura de tela do seu simulador rodando localmente aqui — por exemplo, `assets/preview.png`)*
-
 ---
 
 ## ⚙️ Como Executar o Projeto
