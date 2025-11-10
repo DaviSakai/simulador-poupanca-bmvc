@@ -37,7 +37,7 @@ simulador-poupanca-bmvc/
 
 ---
 
-## 🖥️ Demonstração
+## 🖥️ Inspiração
 
 ```bash
 A interface foi inspirada em simuladores de grandes portais como **iDinheiro**, **Serasa** e **BTG Pactual**,  
