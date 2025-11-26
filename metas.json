@@ -1,0 +1,10 @@
+[
+    {
+        "id": 1,
+        "nome": "Carro",
+        "categoria": "longo",
+        "valor_mensal": 200.0,
+        "qt_meses": 72,
+        "taxa_juros": 8.0
+    }
+]

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Minhas Metas</title>
+
+    <style>
+        body {
+            background: #0b0f19;
+            color: #fff;
+            font-family: "Inter", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .descricao {
+            opacity: 0.7;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .btn-nova {
+            display: inline-block;
+            padding: 12px 22px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #1994ff, #735fff);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: #111827;
+            border: 1px solid #1c2538;
+            padding: 22px;
+            border-radius: 14px;
+            transition: 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #3a4a69;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        /* TAGS */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .curto {
+            background: #2a5934;
+            color: #8effb4;
+        }
+        .medio {
+            background: #59492a;
+            color: #ffe197;
+        }
+        .longo {
+            background: #572a2a;
+            color: #ff9f9f;
+        }
+
+        .info {
+            margin-top: 8px;
+            opacity: 0.85;
+        }
+
+        .valor {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0 4px;
+        }
+
+        /* Botões */
+        .acoes {
+            margin-top: 16px;
+        }
+
+        .btn-editar {
+            color: #8ea4ff;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .btn-editar:hover {
+            text-decoration: underline;
+        }
+
+        .btn-excluir {
+            background: #d43f3f;
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: #fff;
+            text-decoration: none;
+        }
+        .btn-excluir:hover {
+            background: #b83232;
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid #1c2538;
+            margin: 25px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Minhas Metas Financeiras</h1>
+    <p class="descricao">Organize seus objetivos e acompanhe seu progresso.</p>
+
+    <a href="/metas/nova" class="btn-nova">+ Criar nova meta</a>
+
+    <div class="cards-grid">
+
+        {% for meta in metas %}
+        <div class="card">
+
+            <div>
+                <span class="tag {{ meta.categoria }}">
+                    {% if meta.categoria == 'curto' %}CURTO PRAZO
+                    {% elif meta.categoria == 'medio' %}MÉDIO PRAZO
+                    {% else %}LONGO PRAZO
+                    {% endif %}
+                </span>
+            </div>
+
+            <div class="card-title">{{ meta.nome }}</div>
+
+            <div class="info">🪙 Valor mensal: <b>R$ {{ "%.2f"|format(meta.valor_mensal) }}</b></div>
+            <div class="info">📆 Duração: <b>{{ meta.qt_meses }} meses</b></div>
+            <div class="info">📈 Juros anual: <b>{{ "%.2f"|format(meta.taxa_juros) }}%</b></div>
+
+            <hr>
+
+            <div class="acoes">
+                <a href="/metas/{{ meta.id }}/editar" class="btn-editar">Editar</a>
+                <form method="POST" action="/metas/{{ meta.id }}/excluir" style="display:inline;">
+                    <button class="btn-excluir">Excluir</button>
+                </form>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
