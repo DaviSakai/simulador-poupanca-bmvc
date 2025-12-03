@@ -1,93 +1,46 @@
-// =========================
-//  Formatação BR
-// =========================
-function formatarMoeda(valor) {
-  if (isNaN(valor)) return "R$ 0,00";
-
-  return valor.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-      minimumFractionDigits: 2
-  });
+function formatarMoeda(v) {
+  return v.toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
 }
 
-// =========================
-//  Seleção dos campos
-// =========================
-const campoValor = document.getElementById("valor_mensal");
-const campoMeses = document.getElementById("qt_meses");
-const campoJuros = document.getElementById("taxa_juros");
-const campoCategoria = document.getElementById("categoria");
-
-const prevInvest = document.getElementById("p_invest");
-const prevJuros = document.getElementById("p_juros");
-const prevTotal = document.getElementById("p_total");
-
-// =========================
-//  Normalizar vírgulas -> ponto
-// =========================
-function limparNumeroBR(valor) {
-  if (!valor) return 0;
-  return Number(valor.replace(",", "."));
+function limpar(v) {
+  if (!v) return 0;
+  return Number(v.replace(",", "."));
 }
 
-// =========================
-//  Atualizar categoria automaticamente
-// =========================
-function atualizarCategoria() {
-  const meses = limparNumeroBR(campoMeses.value);
+document.getElementById("btnCalcular").addEventListener("click", () => {
+  
+  const valor = limpar(document.getElementById("valor_mensal").value);
+  const meses = limpar(document.getElementById("qt_meses").value);
+  const jurosAno = limpar(document.getElementById("taxa_juros").value) / 100;
 
-  if (!meses || meses <= 0) return;
-
-  if (meses <= 12) campoCategoria.value = "curto";
-  else if (meses <= 60) campoCategoria.value = "medio";
-  else campoCategoria.value = "longo";
-}
-
-// =========================
-//  Cálculo da estimativa rápida
-// =========================
-function atualizarPreview() {
-  const valor = limparNumeroBR(campoValor.value);
-  const meses = limparNumeroBR(campoMeses.value);
-  const jurosAnual = limparNumeroBR(campoJuros.value) / 100;
+  const preview = document.getElementById("preview-box");
+  const pInvest = document.getElementById("p_invest");
+  const pJuros = document.getElementById("p_juros");
+  const pTotal = document.getElementById("p_total");
 
   if (!valor || !meses) {
-      prevInvest.textContent = "Você investirá: R$ 0";
-      prevJuros.textContent = "Com juros estimados: R$ 0";
-      prevTotal.innerHTML = "<strong>Total final estimado: R$ 0</strong>";
+      preview.style.display = "block";
+      pInvest.textContent = "Você investirá: R$ 0";
+      pJuros.textContent = "Com juros estimados: R$ 0";
+      pTotal.innerHTML = "<b>Total final estimado: R$ 0</b>";
       return;
   }
 
-  const totalInvestido = valor * meses;
-  let totalFinal = totalInvestido;
+  const investido = valor * meses;
+  let total = investido;
 
-  if (jurosAnual > 0) {
-      const jurosMensal = (1 + jurosAnual) ** (1 / 12) - 1;
-
+  if (jurosAno > 0) {
+      const jurosMes = (1 + jurosAno) ** (1/12) - 1;
       for (let i = 0; i < meses; i++) {
-          totalFinal += valor * jurosMensal * (meses - i);
+          total += valor * jurosMes * (meses - i);
       }
   }
 
-  const jurosGanhos = totalFinal - totalInvestido;
+  const ganho = total - investido;
 
-  prevInvest.textContent = "Você investirá: " + formatarMoeda(totalInvestido);
-  prevJuros.textContent = "Com juros estimados: " + formatarMoeda(jurosGanhos);
-  prevTotal.innerHTML = "<strong>Total final estimado: " + formatarMoeda(totalFinal) + "</strong>";
-}
+  pInvest.textContent = "Você investirá: " + formatarMoeda(investido);
+  pJuros.textContent = "Com juros estimados: " + formatarMoeda(ganho);
+  pTotal.innerHTML = "<b>Total final estimado: " + formatarMoeda(total) + "</b>";
 
-// =========================
-//  Eventos (corrigidos)
-// =========================
-document.addEventListener("DOMContentLoaded", () => {
-  if (campoValor) campoValor.addEventListener("input", atualizarPreview);
-  if (campoMeses) campoMeses.addEventListener("input", () => {
-      atualizarCategoria();
-      atualizarPreview();
-  });
-  if (campoJuros) campoJuros.addEventListener("input", atualizarPreview);
-
-  atualizarCategoria();
-  atualizarPreview();
+  preview.style.display = "block";
 });

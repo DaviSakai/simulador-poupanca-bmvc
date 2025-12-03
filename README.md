@@ -1,19 +1,20 @@
 # 💰 Simulador de Poupança Mensal — BMVC 
 
 Projeto desenvolvido por **Davi Sakai** para o módulo **BMVC** de Orientação a Objetos,  
-com o objetivo de tornar a **educação financeira acessível** e intuitiva.
+com o objetivo de tornar a **educação financeira acessível,moderna e intuitiva**.
 
 ---
 
 ## 🎯 Objetivo do Projeto
 
-O **Simulador de Poupança Mensal** permite visualizar, de forma simples e didática,  
-quanto o dinheiro pode crescer com **depósitos mensais** — com e sem rendimento.  
+O **Planejador de Metas Financeiras** permite que o usuário:
 
-Ele foi feito para ajudar **iniciantes em investimentos** a compreenderem conceitos como:
-- Acúmulo de capital com constância 💡  
-- Juros compostos e rendimento percentual 📈  
-- Diferença entre guardar e investir com rentabilidade 🧠  
+- Crie e gerencie metas financeiras 🎯
+- Simule crescimento com aportes mensais 🧮
+- Visualize o impacto dos juros compostos 📈
+- Organize sua vida financeira de forma profissional e prática 🧠
+
+Além disso, conta com um sistema seguro de login, área restrita e interface inspirada em grandes plataformas financeiras.
 
 ---
 
@@ -22,16 +23,29 @@ Ele foi feito para ajudar **iniciantes em investimentos** a compreenderem concei
 ```bash
 simulador-poupanca-bmvc/
 │
-├── main.py              → servidor FastAPI que serve o app
+├── main.py                      → servidor FastAPI + rotas + autenticação
+├── models.py                    → persistência em JSON (metas e usuários)
 │
-├── view/
-│   └── simulador.html    → interface principal do simulador
+├── templates/                   → páginas HTML com Jinja2
+│   ├── base.html                → layout principal
+│   ├── login.html               → página de login moderna
+│   ├── cadastro.html            → criação de conta
+│   ├── restrito.html            → dashboard do usuário
+│   └── metas/
+│       ├── listar.html          → listagem de metas
+│       └── form.html            → criar/editar metas
 │
-└── static/
-    ├── css/
-    │   └── simulador.css → estilo visual moderno e responsivo
-    └── js/
-        └── simulador.js  → lógica da simulação (juros e cálculos)
+├── static/
+│   ├── css/
+│   │   ├── core.css             → estilo global
+│   │   ├── auth.css             → login/cadastro
+│   │   └── metas.css            → página de metas
+│   └── js/
+│       └── simulador.js         → cálculos do simulador
+│
+└── view/
+    └── simulador.html           → simulador público (sem login)
+
 ```
 
 

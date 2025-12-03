@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% set hide_header = True %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-container">
+
+    <!-- LADO ESQUERDO -->
+    <div class="auth-left">
+        <h1 class="auth-title">
+            Transforme sua <span class="highlight">Vida Financeira</span><br>
+            com clareza e estratégia.
+        </h1>
+
+        <p class="auth-subtitle">
+            Acesse sua conta para acompanhar metas, simular cenários e evoluir rumo à liberdade financeira.
+        </p>
+
+        <ul class="auth-features">
+            <li>🎯 Metas inteligentes e automáticas</li>
+            <li>🔒 Segurança e experiência profissional</li>
+            <li>🧮 Calculadora financeira integrada</li>
+        </ul>
+    </div>
+
+    <!-- LADO DIREITO (FORM LOGIN) -->
+    <div class="auth-right">
+
+        <h2 class="auth-form-title">Acessar conta</h2>
+
+        <form method="POST" class="auth-form">
+
+            <label>Usuário</label>
+            <input type="text" name="username" placeholder="Digite seu usuário" required>
+
+            <label>Senha</label>
+            <div class="password-wrapper">
+                <input type="password" name="password" placeholder="Sua senha" required>
+                <span class="toggle-password">👁️</span>
+            </div>
+
+            {% if erro %}
+            <p class="auth-error">{{ erro }}</p>
+            {% endif %}
+
+            <button type="submit" class="auth-btn">Entrar</button>
+        </form>
+
+        <p class="auth-register">
+            Não possui conta? <a href="/cadastro">Criar conta</a>
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

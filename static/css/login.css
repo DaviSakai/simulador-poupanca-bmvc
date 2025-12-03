@@ -1,0 +1,113 @@
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    padding: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.login-left {
+    width: 50%;
+}
+
+.login-title {
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.login-subtitle {
+    font-size: 18px;
+    color: #ccc;
+    max-width: 500px;
+    margin-bottom: 40px;
+}
+
+/* LISTA DE FEATURES */
+.login-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.login-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: #111722;
+    padding: 16px 20px;
+    border-radius: 14px;
+    border: 1px solid #1e2633;
+}
+
+.login-feature .icon {
+    font-size: 34px;
+}
+
+.login-feature h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.login-feature p {
+    font-size: 15px;
+    color: #b9c4d1;
+    margin: 0;
+}
+
+/* LOGIN BOX */
+.login-box {
+    width: 360px;
+    background: #111722;
+    padding: 40px;
+    border-radius: 14px;
+    border: 1px solid #1e2633;
+}
+
+.login-box-title {
+    font-size: 28px;
+    margin-bottom: 24px;
+}
+
+.login-form label {
+    margin-top: 12px;
+    display: block;
+    font-size: 14px;
+}
+
+.login-form input {
+    width: 100%;
+    margin-top: 6px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #222c3a;
+    background: #0d121a;
+    color: #fff;
+    font-size: 15px;
+}
+
+.btn-login {
+    margin-top: 22px;
+    width: 100%;
+    padding: 12px;
+    font-size: 17px;
+    background: linear-gradient(90deg, #009cff, #00c3ff);
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.error {
+    color: #ff7070;
+    margin-top: 10px;
+}
+
+.signup-link {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}

@@ -1,10 +1,18 @@
 [
     {
-        "id": 1,
+        "id": 2,
+        "nome": "Viagem",
+        "categoria": "longo",
+        "valor_mensal": 1000.0,
+        "qt_meses": 48,
+        "taxa_juros": 8.0
+    },
+    {
+        "id": 3,
         "nome": "Carro",
         "categoria": "longo",
-        "valor_mensal": 200.0,
-        "qt_meses": 72,
-        "taxa_juros": 8.0
+        "valor_mensal": 1000.0,
+        "qt_meses": 78,
+        "taxa_juros": 6.0
     }
 ]

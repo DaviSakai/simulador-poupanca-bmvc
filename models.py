@@ -1,98 +1,132 @@
 import json
-import os
+from pathlib import Path
+from pydantic import BaseModel
 
-ARQUIVO_METAS = "metas.json"
+# ============================================================
+# 🔵 CONFIGURAÇÃO DE ARQUIVO (Usuários)
+# ============================================================
 
+BASE_DIR = Path(__file__).resolve().parent
+USERS_FILE = BASE_DIR / "usuarios.json"
 
-# ===========================
-#   MODELO DE DADOS
-# ===========================
-class MetaPoupanca:
-    def __init__(self, id, nome, categoria, valor_mensal, qt_meses, taxa_juros):
-        self.id = id
-        self.nome = nome
-        self.categoria = categoria          # <-- NOVO CAMPO
-        self.valor_mensal = valor_mensal
-        self.qt_meses = qt_meses
-        self.taxa_juros = taxa_juros
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "nome": self.nome,
-            "categoria": self.categoria,
-            "valor_mensal": self.valor_mensal,
-            "qt_meses": self.qt_meses,
-            "taxa_juros": self.taxa_juros
-        }
+if not USERS_FILE.exists():
+    USERS_FILE.write_text("[]", encoding="utf-8")
 
 
-# ===========================
-#   REPOSITÓRIO
-# ===========================
+# ============================================================
+# 🔵 MODELO Pydantic para Usuário
+# ============================================================
+
+class Usuario(BaseModel):
+    username: str
+    password: str   # (simples; depois podemos colocar hash)
+
+
+# ============================================================
+# 🔵 FUNÇÕES DE USUÁRIOS
+# ============================================================
+
+def carregar_usuarios():
+    """Lê todos os usuários do arquivo JSON."""
+    try:
+        return json.loads(USERS_FILE.read_text(encoding="utf-8"))
+    except:
+        return []
+
+
+def salvar_usuarios(lista):
+    """Salva lista completa de usuários no JSON."""
+    USERS_FILE.write_text(
+        json.dumps(lista, indent=4, ensure_ascii=False),
+        encoding="utf-8"
+    )
+
+
+def buscar_usuario(username: str):
+    """Retorna o dicionário do usuário se existir."""
+    usuarios = carregar_usuarios()
+    for u in usuarios:
+        if u["username"] == username:
+            return u
+    return None
+
+
+def criar_usuario(username: str, password: str):
+    """Cria e salva um novo usuário."""
+    usuarios = carregar_usuarios()
+
+    novo = Usuario(username=username, password=password)
+    usuarios.append(novo.model_dump())
+
+    salvar_usuarios(usuarios)
+    return novo
+
+
+def autenticar_usuario(username: str, password: str):
+    """Retorna o usuário se login for válido, senão None."""
+    usuario = buscar_usuario(username)
+
+    if usuario and usuario["password"] == password:
+        return Usuario(**usuario)  # retorna modelo Pydantic
+    return None
+
+
+
+# ============================================================
+# 🔵 FUNÇÕES DAS METAS 
+# ============================================================
+
 class MetaPoupancaRepository:
     def __init__(self):
-        if not os.path.exists(ARQUIVO_METAS):
-            with open(ARQUIVO_METAS, "w", encoding="utf-8") as f:
-                json.dump([], f, ensure_ascii=False, indent=4)
-
-    # Carregar todas metas
-    def _carregar(self):
-        with open(ARQUIVO_METAS, "r", encoding="utf-8") as f:
-            return json.load(f)
-
-    # Salvar lista completa
-    def _salvar(self, lista):
-        with open(ARQUIVO_METAS, "w", encoding="utf-8") as f:
-            json.dump(lista, f, ensure_ascii=False, indent=4)
-
-    # ===========================
-    #   CRUD
-    # ===========================
+        self.arquivo = BASE_DIR / "metas.json"
+        if not self.arquivo.exists():
+            self.arquivo.write_text("[]", encoding="utf-8")
 
     def listar(self):
-        dados = self._carregar()
-        return [MetaPoupanca(**d) for d in dados]
+        return json.loads(self.arquivo.read_text(encoding="utf-8"))
 
-    def buscar_por_id(self, meta_id: int):
-        dados = self._carregar()
-        for d in dados:
-            if d["id"] == meta_id:
-                return MetaPoupanca(**d)
-        return None
+    def salvar(self, lista):
+        self.arquivo.write_text(json.dumps(lista, indent=4), encoding="utf-8")
 
     def criar(self, nome, categoria, valor_mensal, qt_meses, taxa_juros):
-        dados = self._carregar()
+        metas = self.listar()
+        novo_id = 1 if not metas else metas[-1]["id"] + 1
 
-        novo_id = 1 if not dados else dados[-1]["id"] + 1
+        meta = {
+            "id": novo_id,
+            "nome": nome,
+            "categoria": categoria,
+            "valor_mensal": valor_mensal,
+            "qt_meses": qt_meses,
+            "taxa_juros": taxa_juros
+        }
 
-        nova_meta = MetaPoupanca(
-            id=novo_id,
-            nome=nome,
-            categoria=categoria,
-            valor_mensal=valor_mensal,
-            qt_meses=qt_meses,
-            taxa_juros=taxa_juros
-        )
+        metas.append(meta)
+        self.salvar(metas)
+        return meta
 
-        dados.append(nova_meta.to_dict())
-        self._salvar(dados)
+    def buscar_por_id(self, meta_id):
+        metas = self.listar()
+        for m in metas:
+            if m["id"] == meta_id:
+                return m
+        return None
 
     def atualizar(self, meta_id, nome, categoria, valor_mensal, qt_meses, taxa_juros):
-        dados = self._carregar()
-
-        for d in dados:
-            if d["id"] == meta_id:
-                d["nome"] = nome
-                d["categoria"] = categoria
-                d["valor_mensal"] = valor_mensal
-                d["qt_meses"] = qt_meses
-                d["taxa_juros"] = taxa_juros
+        metas = self.listar()
+        for m in metas:
+            if m["id"] == meta_id:
+                m.update({
+                    "nome": nome,
+                    "categoria": categoria,
+                    "valor_mensal": valor_mensal,
+                    "qt_meses": qt_meses,
+                    "taxa_juros": taxa_juros
+                })
                 break
-
-        self._salvar(dados)
+        self.salvar(metas)
 
     def excluir(self, meta_id):
-        dados = self._carregar()
-        dados = [d for d in dados if d["id"] != meta_id]
-        self._salvar(dados)
+        metas = self.listar()
+        metas = [m for m in metas if m["id"] != meta_id]
+        self.salvar(metas)

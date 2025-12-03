@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% set hide_header = True %}
+{% block title %}Criar conta – Planejador Financeiro{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/auth.css') }}">
+<script defer src="{{ url_for('static', path='js/auth.js') }}"></script>
+
+<div class="auth-container">
+
+    <!-- ESQUERDA -->
+    <section class="auth-info">
+        <div class="info-content">
+
+            <h1 class="hero-title">
+                Comece sua <span>Jornada Financeira</span><br>
+                com organização e clareza.
+            </h1>
+
+            <p class="hero-subtitle">
+                Crie sua conta gratuitamente e comece a estruturar metas,
+                acompanhar patrimônio e projetar crescimento financeiro.
+            </p>
+
+            <div class="key-points">
+                <div class="key-card">
+                    <span class="icon">💰</span>
+                    <span>Gestão financeira simplificada</span>
+                </div>
+                <div class="key-card">
+                    <span class="icon">🧠</span>
+                    <span>Insights inteligentes personalizados</span>
+                </div>
+                <div class="key-card">
+                    <span class="icon">🔒</span>
+                    <span>Segurança com criptografia</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DIREITA -->
+    <section class="auth-form">
+        <div class="form-card">
+
+            <h2 class="form-title">Criar conta</h2>
+
+            {% if erro %}
+                <div class="alert">{{ erro }}</div>
+            {% endif %}
+
+            <form method="POST" action="/cadastro">
+
+                <div class="input-group">
+                    <label for="username">Usuário</label>
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        required
+                        placeholder="Escolha um usuário">
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Senha</label>
+                    <div class="password-wrapper">
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            required
+                            placeholder="Crie uma senha">
+                        <button type="button" class="toggle-password" onclick="togglePassword()">👁</button>
+                    </div>
+                </div>
+
+                <button class="btn-primary" type="submit">Criar conta</button>
+
+                <p class="form-footer">
+                    Já possui conta?
+                    <a href="/login">Entrar</a>
+                </p>
+
+            </form>
+
+        </div>
+    </section>
+
+</div>
+{% endblock %}

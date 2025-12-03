@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – Planejador de Metas{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', path='css/dashboard.css') }}">
+
+<h1 class="page-title">
+    Planejador de <span class="highlight">Metas Financeiras</span>
+</h1>
+
+<p class="welcome-sub">
+    Bem-vindo, {{ usuario.username }}! Organize metas, acompanhe seu progresso
+    e utilize ferramentas inteligentes para seu crescimento financeiro.
+</p>
+
+<div class="dashboard-main">
+
+    <div class="dashboard-cards">
+
+        <a href="/metas" class="card">
+            <div class="card-icon">🎯</div>
+            <h3>Gerenciar Metas</h3>
+            <p>Crie, edite e acompanhe suas metas.</p>
+        </a>
+
+        <a href="/" class="card">
+            <div class="card-icon">🧮</div>
+            <h3>Simulador Completo</h3>
+            <p>Simule aportes, juros e cenários.</p>
+        </a>
+
+        <a class="card disabled">
+            <div class="card-icon">📊</div>
+            <h3>Dashboard Patrimonial</h3>
+            <p class="soon">Em breve</p>
+        </a>
+
+        <a class="card disabled">
+            <div class="card-icon">🤖</div>
+            <h3>Metas Automáticas</h3>
+            <p class="soon">Em desenvolvimento</p>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
