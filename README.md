@@ -16,6 +16,15 @@ O **Planejador de Metas Financeiras** permite que o usuário:
 
 Além disso, conta com um sistema seguro de login, área restrita e interface inspirada em grandes plataformas financeiras.
 
+O sistema inclui:
+
+🔐 Login, cadastro e sessão persistente
+
+🗂️ CRUD completo de metas financeiras
+
+📦 Persistência em arquivos JSON
+
+🎨 Interface moderna inspirada em plataformas reais
 ---
 
 ## 🧱 Estrutura do Projeto
@@ -23,31 +32,67 @@ Além disso, conta com um sistema seguro de login, área restrita e interface in
 ```bash
 simulador-poupanca-bmvc/
 │
-├── main.py                      → servidor FastAPI + rotas + autenticação
-├── models.py                    → persistência em JSON (metas e usuários)
+├── main.py                      → Servidor FastAPI + rotas + autenticação
+├── models.py                    → Persistência em JSON (usuários + metas)
 │
-├── templates/                   → páginas HTML com Jinja2
-│   ├── base.html                → layout principal
-│   ├── login.html               → página de login moderna
-│   ├── cadastro.html            → criação de conta
-│   ├── restrito.html            → dashboard do usuário
+├── controller/                  → Controladores (MVC)
+│   └── simulador_controller.py  → Controller do simulador público
+│
+├── model/                       → Modelos (lógica de negócio)
+│   └── simulador_model.py       → Cálculos de poupança
+│
+├── metas.json                   → Banco de dados de metas
+├── usuarios.json                → Banco de dados de usuários
+│
+├── templates/                   → Páginas HTML (Jinja2)
+│   ├── base.html                
+│   ├── login.html               
+│   ├── cadastro.html            
+│   ├── restrito.html            
 │   └── metas/
-│       ├── listar.html          → listagem de metas
-│       └── form.html            → criar/editar metas
+│       ├── listar.html          
+│       └── form.html            
 │
 ├── static/
 │   ├── css/
-│   │   ├── core.css             → estilo global
-│   │   ├── auth.css             → login/cadastro
-│   │   └── metas.css            → página de metas
+│   │   ├── core.css             
+│   │   ├── auth.css             
+│   │   └── metas.css            
 │   └── js/
-│       └── simulador.js         → cálculos do simulador
+│       └── simulador.js         
 │
 └── view/
-    └── simulador.html           → simulador público (sem login)
+    └── simulador.html           → Simulador público (sem login)
 
 ```
 
+## 🧠 Arquitetura BMVC
+# Model
+
+- model/simulador_model.py → cálculos matemáticos (juros compostos)
+- models.py → repositórios e persistência JSON
+- Totalmente isolado, sem lógica de controller ou view
+
+# View
+
+- HTML, CSS e JS
+- Templates Jinja2
+- Interface limpa e responsiva
+
+Sem lógica de negócio
+
+# Controller
+
+- controller/simulador_controller.py
+- Recebe requisições, chama o Model e envia resposta à View
+- Mantém o encapsulamento e separação de camadas
+
+# Main
+
+- Ponto de entrada do sistema
+- Registra controllers
+- Gerencia sessão, autenticação e rotas
+- Não possui lógica de negócio
 
 ---
 
@@ -58,6 +103,28 @@ A interface foi inspirada em simuladores de grandes portais como **iDinheiro**, 
 mantendo uma identidade leve, educativa e profissional.
 
 ```
+## 📌 Funcionalidades
+# Área Pública
+
+- Simulador de poupança
+- Processamento dinâmico via JavaScript
+- Cálculo com e sem juros compostos
+
+# Área Privada
+
+- Login, cadastro e logout
+- Sessão persistente
+- Dashboard do usuário
+- CRUD completo de metas financeiras
+
+# Técnicas Utilizadas
+
+- FastAPI
+- Jinja2 Templates
+- Repository Pattern
+- Arquitetura BMVC
+- Persistência JSON
+- Encapsulamento e separação de responsabilidades
 
 ## ⚙️ Como Executar o Projeto
 
