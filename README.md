@@ -18,13 +18,13 @@ Além disso, conta com um sistema seguro de login, área restrita e interface in
 
 O sistema inclui:
 
-🔐 Login, cadastro e sessão persistente
+- Login, cadastro e sessão persistente 🔐
 
-🗂️ CRUD completo de metas financeiras
+- CRUD completo de metas financeiras 🗂️
 
-📦 Persistência em arquivos JSON
+- Persistência em arquivos JSON 📦
 
-🎨 Interface moderna inspirada em plataformas reais
+- Interface moderna inspirada em plataformas reais 🎨
 ---
 
 ## 🧱 Estrutura do Projeto
@@ -67,6 +67,8 @@ simulador-poupanca-bmvc/
 ```
 
 ## 🧠 Arquitetura BMVC
+```bash
+
 # Model
 
 - model/simulador_model.py → cálculos matemáticos (juros compostos)
@@ -78,8 +80,7 @@ simulador-poupanca-bmvc/
 - HTML, CSS e JS
 - Templates Jinja2
 - Interface limpa e responsiva
-
-Sem lógica de negócio
+- Sem lógica de negócio
 
 # Controller
 
@@ -93,6 +94,7 @@ Sem lógica de negócio
 - Registra controllers
 - Gerencia sessão, autenticação e rotas
 - Não possui lógica de negócio
+```bash
 
 ---
 
@@ -104,6 +106,9 @@ mantendo uma identidade leve, educativa e profissional.
 
 ```
 ## 📌 Funcionalidades
+```bash
+
+
 # Área Pública
 
 - Simulador de poupança
@@ -125,6 +130,7 @@ mantendo uma identidade leve, educativa e profissional.
 - Arquitetura BMVC
 - Persistência JSON
 - Encapsulamento e separação de responsabilidades
+```
 
 ## ⚙️ Como Executar o Projeto
 
