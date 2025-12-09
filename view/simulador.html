@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <title>Simulador de Poupança Mensal</title>
@@ -7,114 +8,137 @@
   <!-- Fonte -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/static/css/simulador.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
   <div class="page">
 
-    <!-- Topbar -->
-    <header class="topbar">
+    <!-- =================== TOPBAR =================== -->
+    <header class="topbar glass">
       <div class="topbar-left">
         <div class="logo-dot"></div>
+
         <div>
-          <span class="topbar-sub">Projeto BMVC • Educação Financeira</span>
-          <h1 class="topbar-title">Simulador de Poupança Mensal</h1>
+          <span class="topbar-sub">PROJETO BMVC • EDUCAÇÃO FINANCEIRA</span>
+
+          <h1 class="sim-title">
+            Simulador de <span>Poupança Mensal</span>
+          </h1>
         </div>
       </div>
-      <span class="topbar-badge">Protótipo v1.0</span>
+
+      <span class="topbar-badge">Protótipo v3.0</span>
     </header>
 
-    <!-- Hero -->
-    <section class="hero">
+
+    <!-- =================== HERO =================== -->
+    <section class="hero glass">
       <div>
-        <h2>Veja, em segundos, quanto seu dinheiro pode crescer.</h2>
-        <p>Simule depósitos mensais, com ou sem rendimento, em linguagem pensada para iniciantes em investimentos.</p>
+        <h2 class="hero-title">Veja, em segundos, quanto seu dinheiro pode crescer.</h2>
+        <p class="hero-desc">Simule aportes mensais com ou sem rendimento — simples, rápido e visual.</p>
       </div>
-      <div class="hero-highlight">
+
+      <div class="hero-highlight glass">
         <strong>Bom para:</strong>
         <span>metas de curto, médio e longo prazo</span>
       </div>
     </section>
 
-    <!-- Conteúdo principal -->
+
+    <!-- =================== GRID PRINCIPAL =================== -->
     <main class="card-grid">
 
-      <!-- Card principal: formulário + resultado -->
-      <section class="card card--main">
+      <!-- =================== CARD FORM =================== -->
+      <section class="card card--main glass">
+
         <div class="card-header">
           <h3>Preencha a simulação</h3>
-          <p>Use valores reais da sua rotina. Você pode alterar depois quantas vezes quiser.</p>
+          <p>Use valores reais do seu dia a dia.</p>
         </div>
 
         <form id="simulador-form" class="form">
-          <!-- Valor mensal -->
+
+          <!-- VALOR MENSAL -->
           <div class="form-row">
-            <label for="valorMensal">Quanto você pretende guardar por mês? *</label>
-            <div class="input-wrapper">
-              <span class="input-prefix">R$</span>
-              <input
-                type="number"
-                id="valorMensal"
-                placeholder="200"
-                min="1"
-                step="0.01"
-                required
-              >
+            <div class="input-group">
+
+              <div class="input-wrapper glass">
+                <input type="number" id="valorMensal" min="1" step="0.01" class="floating-input" placeholder=" " required>
+
+                <label for="valorMensal" class="floating-label">
+                  Quanto deseja guardar por mês? *
+                </label>
+
+                <span class="input-prefix">R$</span>
+              </div>
+
+              <small>Escolha um valor que caiba no seu bolso.</small>
             </div>
-            <small>Comece com um valor que caiba na sua realidade hoje.</small>
           </div>
 
-          <!-- Meses -->
+
+          <!-- MESES + TAXA -->
           <div class="form-row form-row--split">
-            <div class="form-group">
-              <label for="qtMeses">Por quantos meses? *</label>
-              <div class="input-wrapper">
-                <input
-                  type="number"
-                  id="qtMeses"
-                  placeholder="24"
-                  min="1"
-                  required
-                >
+
+            <!-- MESES -->
+            <div class="input-group">
+              <div class="input-wrapper glass">
+                <input type="number" id="qtMeses" min="1" class="floating-input" placeholder=" " required>
+
+                <label for="qtMeses" class="floating-label">
+                  Por quantos meses? *
+                </label>
+
                 <span class="input-suffix">meses</span>
               </div>
-              <small>12 meses = 1 ano, 60 meses = 5 anos.</small>
+
+              <small>12 meses = 1 ano.</small>
             </div>
 
-            <div class="form-group">
-              <label for="taxaMensal">Taxa de rendimento mensal (opcional)</label>
-              <div class="input-wrapper">
-                <input
-                  type="number"
-                  id="taxaMensal"
-                  placeholder="0,6"
-                  step="0.01"
-                  min="0"
-                >
+
+            <!-- TAXA -->
+            <div class="input-group">
+              <div class="input-wrapper glass">
+                <input type="number" id="taxaMensal" min="0" step="0.01" class="floating-input" placeholder=" ">
+
+                <label for="taxaMensal" class="floating-label">
+                  Taxa mensal (%) — opcional
+                </label>
+
                 <span class="input-suffix">%</span>
               </div>
-              <small>Informe em %. Ex: 0,6 significa 0,6% ao mês.</small>
+
+              <small>Ex: 0,6% ao mês.</small>
             </div>
+
           </div>
 
           <button type="submit" class="btn-primary">Calcular simulação</button>
+
         </form>
 
-        <!-- Resultado -->
-        <section id="resultado" class="result-card result-card--hidden">
+
+        <!-- =================== RESULTADO =================== -->
+        <section id="resultado" class="result-card glass result-card--hidden">
+
           <div class="result-header">
-            <h3>Resultado da sua simulação</h3>
+            <h3>Resultado da simulação</h3>
             <span class="chip">Valores aproximados</span>
           </div>
 
-          <div class="result-values">
+          <div class="result-values-row">
             <div class="result-item">
               <span>Total depositado (sem juros)</span>
               <strong id="totalSemJuros">R$ 0,00</strong>
             </div>
+
             <div class="result-item">
               <span>Total estimado (com juros)</span>
               <strong id="totalComJuros">R$ 0,00</strong>
@@ -123,59 +147,100 @@
 
           <p class="result-highlight" id="textoDiferenca"></p>
 
+          <!-- BOTÕES DO TIPO DO GRÁFICO -->
+          <div class="chart-controls">
+            <button id="btnLine" class="chart-btn">Linha</button>
+            <button id="btnBar" class="chart-btn">Barra</button>
+            <button id="btnArea" class="chart-btn">Área</button>
+          </div>
+
+          <!-- Gráfico -->
+          <div class="chart-container glass">
+            <canvas id="graficoSimulacao"></canvas>
+          </div>
+
           <div class="result-note">
-            <h4>Como interpretar esses números?</h4>
+            <h4>Como interpretar?</h4>
             <ul>
-              <li><strong>Sem juros</strong>: é o mínimo que você terá, apenas somando os depósitos mensais.</li>
-              <li><strong>Com rendimento</strong>: é quando, além do valor que você guarda, o dinheiro também trabalha por você.</li>
-              <li><strong>Consistência</strong>: o tempo é o principal aliado. Quanto mais meses, maior o efeito dos juros.</li>
+              <li><strong>Sem juros:</strong> soma dos depósitos.</li>
+              <li><strong>Com juros:</strong> juros compostos trabalhando por você.</li>
+              <li><strong>Tempo:</strong> quanto mais meses, maior o efeito.</li>
             </ul>
           </div>
 
           <p class="disclaimer">
-            <strong>Atenção:</strong> este simulador é educativo e apresenta valores aproximados.
-            Não substitui uma análise profissional nem simulações oficiais de instituições financeiras.
+            Este simulador apresenta valores aproximados.
           </p>
+
         </section>
+
       </section>
 
-      <!-- Card lateral: explicações/guia -->
-      <aside class="card card--side">
+
+      <!-- =================== CARD LATERAL =================== -->
+      <aside class="card card--side glass">
+
         <h3>Como funciona a simulação</h3>
+
         <ol class="steps-list">
-          <li>Informe quanto você consegue guardar por mês.</li>
-          <li>Defina por quanto tempo pretende investir.</li>
-          <li>(Opcional) Adicione uma taxa de rendimento mensal estimada.</li>
-          <li>Veja o total estimado, com e sem juros.</li>
+          <li>Informe quanto quer guardar por mês.</li>
+          <li>Escolha o prazo de investimento.</li>
+          <li>(Opcional) Informe uma taxa mensal.</li>
+          <li>Veja total com e sem juros.</li>
         </ol>
 
-        <div class="info-box">
+        <div class="info-box glass">
           <h4>Dica de taxa</h4>
-          <p>
-            Investimentos que rendem próximo ao CDI costumam ficar por volta de
-            <strong>0,5% a 1,0% ao mês</strong>.  
-            Se você não souber qual taxa usar, deixe o campo em branco para ver apenas o efeito dos depósitos.
-          </p>
+          <p>Investimentos próximos ao CDI rendem cerca de <strong>0,5% a 1,0% ao mês</strong>.</p>
         </div>
 
         <div class="side-hint">
           <h4>Use este simulador para:</h4>
           <ul>
-            <li>Planejar uma reserva de emergência.</li>
-            <li>Guardar para estudos, viagem ou projetos pessoais.</li>
-            <li>Visualizar o impacto de um pequeno aumento mensal nos aportes.</li>
+            <li>Reserva de emergência</li>
+            <li>Viagens e estudos</li>
+            <li>Planejamento financeiro pessoal</li>
           </ul>
         </div>
+
+        <!-- ⭐ BOTÃO VOLTAR AO DASHBOARD (agora no local ideal de UX) -->
+        <a href="/restrito" class="back-btn-side glass">
+          ⟵ Voltar ao Dashboard
+        </a>
+
       </aside>
 
     </main>
 
+
     <footer class="footer">
-      Desenvolvido por <strong>Davi Sakai</strong> para o módulo <strong>BMVC I</strong> — projeto de educação financeira acessível.
+      Desenvolvido por <strong>Davi Sakai</strong> • BMVC
     </footer>
+
   </div>
 
-  <!-- JS -->
+
+  <!-- Partículas -->
+  <div class="particles"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.querySelector(".particles");
+      if (!container) return;
+
+      for (let i = 0; i < 35; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.animationDuration = `${8 + Math.random() * 10}s`;
+        p.style.animationDelay = `-${Math.random() * 15}s`;
+        container.appendChild(p);
+      }
+    });
+  </script>
+
+  <!-- Script principal -->
   <script src="/static/js/simulador.js"></script>
+
 </body>
+
 </html>

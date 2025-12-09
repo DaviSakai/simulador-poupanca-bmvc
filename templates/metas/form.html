@@ -1,87 +1,128 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>{% if acao == 'editar' %}Editar Meta{% else %}Nova Meta{% endif %}</title>
+{% extends "base.html" %}
 
-    <!-- CSS correto -->
-    <link rel="stylesheet" href="/static/css/metas.css?v=1">
-</head>
+{% block title %}
+{% if acao == 'editar' %}Editar Meta{% else %}Nova Meta{% endif %}
+{% endblock %}
 
-<body>
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/metas_base.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', path='css/metas_form.css') }}">
+{% endblock %}
 
-<div class="container">
+{% block content %}
 
-    <div class="topo">
-        <a href="/metas" class="btn secundario pequeno">← Voltar</a>
-        <h1>{% if acao == 'editar' %}Editar Meta{% else %}Nova Meta{% endif %}</h1>
+<div class="page">
+
+    <!-- ========================= -->
+    <!--        TOPBAR GLASS       -->
+    <!-- ========================= -->
+    <div class="topbar glass">
+        <div class="topbar-left">
+            <div class="logo-dot"></div>
+            <div>
+                <div class="topbar-sub">BMVC — Metas Financeiras</div>
+                <h1 class="sim-title">
+                    {% if acao == 'editar' %}Editar Meta{% else %}Nova Meta{% endif %}
+                </h1>
+            </div>
+        </div>
+
+        <a href="/metas" class="btn-voltar">← Voltar</a>
     </div>
 
-    <form class="form-meta" method="POST"
-          action="{% if acao == 'editar' %}/metas/{{ meta.id }}/atualizar{% else %}/metas/criar{% endif %}">
+    <!-- ========================= -->
+    <!--        CARD FORM          -->
+    <!-- ========================= -->
+    <div class="card-form glass">
 
-        <label>
-            Nome da meta
-            <input type="text" name="nome" value="{{ meta.nome if meta else '' }}" required>
-        </label>
+        <p class="form-desc">Defina sua meta financeira e visualize uma estimativa do valor final acumulado.</p>
 
-        <label>
-            Categoria da meta
-            <select name="categoria" id="categoria">
-                <option value="curto" {% if meta and meta.categoria=='curto' %}selected{% endif %}>Curto prazo (até 1 ano)</option>
-                <option value="medio" {% if meta and meta.categoria=='medio' %}selected{% endif %}>Médio prazo (1 a 5 anos)</option>
-                <option value="longo" {% if meta and meta.categoria=='longo' %}selected{% endif %}>Longo prazo (+5 anos)</option>
-            </select>
-        </label>
+        <form id="formMeta" method="POST"
+        action="{% if acao == 'editar' %}/metas/{{ meta.id }}/atualizar{% else %}/metas/criar{% endif %}">
 
-        <label>
-            Valor mensal (R$)
-            <input type="number" id="valor_mensal" name="valor_mensal"
-                   step="0.01"
-                   value="{{ meta.valor_mensal if meta else '' }}" required>
-        </label>
+            <!-- NOME DA META -->
+            <div class="input-wrapper">
+                <input type="text" id="input_nome" name="nome"
+                       class="floating-input" placeholder=" "
+                       value="{{ meta.nome if meta else '' }}" required>
+                <label class="floating-label" for="input_nome">Nome da meta</label>
+            </div>
 
-        <label>
-            Quantidade de meses
-            <input type="number" id="qt_meses" name="qt_meses"
-                   value="{{ meta.qt_meses if meta else '' }}" required>
-        </label>
+            <!-- SELECT CATEGORIA -->
+            <div class="select-wrapper">
+                <label class="select-label">Categoria da meta</label>
 
-        <label>
-            Taxa de juros anual (%) (opcional)
-            <input type="number" step="0.01" id="taxa_juros" name="taxa_juros"
-                   value="{{ meta.taxa_juros if meta else '' }}">
-        </label>
+                <select id="input_categoria" name="categoria" class="select-input">
+                    <option value="curto" {% if meta and meta.categoria=='curto' %}selected{% endif %}>Curto prazo (até 1 ano)</option>
+                    <option value="medio" {% if meta and meta.categoria=='medio' %}selected{% endif %}>Médio prazo (1 a 5 anos)</option>
+                    <option value="longo" {% if meta and meta.categoria=='longo' %}selected{% endif %}>Longo prazo (+5 anos)</option>
+                </select>
+            </div>
 
-        <div class="dica-juros">
-            <b>Dica sobre taxa:</b><br>
-            Investimentos conservadores rendem <b>0,5% a 1% ao mês</b> (6% a 12% ao ano).  
-            Não sabe qual usar? Comece com <b>8% ao ano</b> — valor seguro para simulações.
+            <!-- INPUTS LADO A LADO -->
+            <div class="form-split">
+
+                <!-- VALOR MENSAL -->
+                <div class="half input-wrapper">
+                    <input type="number" step="0.01" id="valor_mensal" name="valor_mensal"
+                        class="floating-input" placeholder=" "
+                        value="{{ meta.valor_mensal if meta else '' }}" required>
+                    <label class="floating-label" for="valor_mensal">Valor mensal (R$)</label>
+                </div>
+
+                <!-- MESES -->
+                <div class="half input-wrapper">
+                    <input type="number" id="qt_meses" name="qt_meses"
+                        class="floating-input" placeholder=" "
+                        value="{{ meta.qt_meses if meta else '' }}" required>
+                    <label class="floating-label" for="qt_meses">Quantidade de meses</label>
+                </div>
+
+            </div>
+
+            <!-- TAXA DE JUROS ANUAL -->
+            <div class="input-wrapper">
+                <input type="number" step="0.01" id="taxa_juros" name="taxa_juros"
+                       class="floating-input" placeholder=" "
+                       value="{{ meta.taxa_juros if meta else '' }}">
+                <label class="floating-label" for="taxa_juros">Taxa de juros anual (%) — opcional</label>
+            </div>
+
+            <!-- CAIXA DE DICA -->
+            <div class="tip-card">
+                <b>Dica:</b> Se não souber que taxa usar, comece com <b>8% ao ano</b>.
+            </div>
+
+            <!-- BOTÕES -->
+            <div class="btn-row">
+
+                <!-- BOTÃO CALCULAR -->
+                <button type="button" id="btnCalcular" class="btn secundario">
+                    Calcular estimativa
+                </button>
+
+                <!-- BOTÃO ENVIAR -->
+                <button type="submit" class="btn primario">
+                    {% if acao == 'editar' %}Salvar alterações{% else %}Criar Meta{% endif %}
+                </button>
+            </div>
+
+        </form>
+
+        <!-- ========================= -->
+        <!--     PREVIEW DE RESULTADO -->
+        <!-- ========================= -->
+        <div id="preview-box" class="preview-card glass" style="display:none;">
+            <h3>📊 Estimativa rápida</h3>
+            <p id="p_invest">Você investirá: R$ 0</p>
+            <p id="p_juros">Com juros estimados: R$ 0</p>
+            <p id="p_total"><b>Total final estimado: R$ 0</b></p>
         </div>
 
-        <div style="display:flex; gap:16px; margin-top:18px;">
-            <button id="btnCalcular" type="button" class="btn secundario" style="flex:1;">
-                Calcular estimativa
-            </button>
-
-            <button type="submit" class="btn primario" style="flex:1;">
-                {% if acao == 'editar' %}Salvar alterações{% else %}Criar Meta{% endif %}
-            </button>
-        </div>
-    </form>
-
-    <div id="preview-box" class="preview-card" style="display:none; margin-top:24px;">
-        <h3>📊 Estimativa rápida</h3>
-
-        <p id="p_invest">Você investirá: R$ 0</p>
-        <p id="p_juros">Com juros estimados: R$ 0</p>
-        <p id="p_total"><b>Total final estimado: R$ 0</b></p>
     </div>
 
 </div>
 
-<!-- JS correto -->
-<script src="/static/js/metas.js?v=1"></script>
+<script src="{{ url_for('static', path='js/metas.js') }}"></script>
 
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,138 @@
+/* ==========================================================
+   LISTAGEM DE METAS — ESTILOS EXCLUSIVOS
+   ========================================================== */
+
+   .list-title {
+    font-size: 2rem;
+    margin: 0 0 10px;
+    font-weight: 800;
+}
+
+.list-desc {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+/* BOTÃO NOVA META */
+.btn-nova {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+
+    background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+    color: white;
+    box-shadow: 0 0 18px rgba(0,180,255,0.35);
+    transition: 0.2s;
+}
+
+.btn-nova:hover {
+    box-shadow: 0 0 26px rgba(0,180,255,0.55);
+}
+
+/* GRID DE CARDS */
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+}
+
+/* CARD */
+
+.card {
+    padding: 22px;
+    border-radius: var(--radius-lg);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px);
+    transition: 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0,200,255,0.4);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 8px 0;
+}
+
+/* TAGS */
+
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.curto {
+    background: rgba(74,222,128,0.15);
+    color: #86efac;
+}
+
+.medio {
+    background: rgba(250,204,21,0.15);
+    color: #facc15;
+}
+
+.longo {
+    background: rgba(239,68,68,0.15);
+    color: #ef4444;
+}
+
+/* INFORMAÇÕES */
+
+.info {
+    margin-top: 6px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.valor {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+/* AÇÕES */
+
+.acoes {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-editar {
+    color: #7dd3fc;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-editar:hover {
+    text-decoration: underline;
+}
+
+.btn-excluir {
+    background: rgba(239,68,68,0.25);
+    border: 1px solid rgba(239,68,68,0.45);
+    padding: 6px 14px;
+    color: #fecaca;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.btn-excluir:hover {
+    background: rgba(239,68,68,0.45);
+}

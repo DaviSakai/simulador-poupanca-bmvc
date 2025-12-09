@@ -4,7 +4,7 @@
         "nome": "Viagem",
         "categoria": "longo",
         "valor_mensal": 1000.0,
-        "qt_meses": 48,
+        "qt_meses": 60,
         "taxa_juros": 8.0
     },
     {
@@ -14,5 +14,13 @@
         "valor_mensal": 1000.0,
         "qt_meses": 78,
         "taxa_juros": 6.0
+    },
+    {
+        "id": 4,
+        "nome": "Viagem pra Parnaiba",
+        "categoria": "curto",
+        "valor_mensal": 9000000.0,
+        "qt_meses": 9,
+        "taxa_juros": 0.19
     }
 ]

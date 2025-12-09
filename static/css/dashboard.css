@@ -1,63 +1,203 @@
-/* Container centralizado como na página de metas */
-.dashboard-main {
-    max-width: 1300px;
-    margin: 2rem auto;
+/* ============================================================
+   DASHBOARD – ESTILO PREMIUM (Nubank / Apple / Google Inspired)
+   ============================================================ */
+
+
+/* ===============================
+   RESET BÁSICO DO DASHBOARD
+   =============================== */
+
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Subtítulo suave */
+body {
+    color: #fff;
+}
+
+
+
+/* ===============================
+   TÍTULO PRINCIPAL (Hero Title)
+   =============================== */
+
+.page-title {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.15;
+
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInTitle 0.7s ease forwards;
+    color: #ffffff;
+}
+
+.highlight {
+    background: linear-gradient(90deg, #00e5ff, #4c8fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    font-weight: 700;
+    display: inline-block;
+
+    opacity: 0;
+    transform: translateY(5px);
+    animation: fadeUpHighlight 0.7s ease forwards 0.15s;
+}
+
+/* Animações premium */
+@keyframes fadeInTitle {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUpHighlight {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* ===============================
+   SUBTÍTULO / INTRO
+   =============================== */
+
 .welcome-sub {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     opacity: 0.75;
-    margin-bottom: 2.5rem;
-    max-width: 700px;
+    max-width: 680px;
+    margin-bottom: 40px;
+
+    animation: fadeInSub 0.8s ease forwards 0.25s;
+    opacity: 0;
+    transform: translateY(8px);
 }
 
-/* GRID dos cards */
+@keyframes fadeInSub {
+    to {
+        opacity: 0.75;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* ===============================
+   CONTAINER PRINCIPAL
+   =============================== */
+
+.dashboard-main {
+    margin-top: 40px;
+}
+
+
+
+/* ===============================
+   GRID DE CARDS
+   =============================== */
+
 .dashboard-cards {
     display: grid;
-    grid-template-columns: repeat(4, minmax(260px, 1fr));
-    gap: 1.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 35px;
 }
 
-/* Card padrão igual aos cards da página de metas */
+
+
+/* ===============================
+   ESTILO DOS CARDS
+   =============================== */
+
 .card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.09);
-    padding: 2rem 1.7rem;
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+
+    padding: 35px 28px;
+    border-radius: 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
     text-decoration: none;
     color: #fff;
+
     transition: 0.25s ease;
-    backdrop-filter: blur(4px);
+    position: relative;
+
+    box-shadow: 0 4px 14px rgba(0,0,0,0.28);
 }
 
 .card:hover {
     transform: translateY(-6px);
-    background: rgba(255,255,255,0.1);
+    border-color: rgba(0,175,255,0.35);
+    background: rgba(255,255,255,0.07);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.45);
 }
+
+
+
+/* ===============================
+   ÍCONES DOS CARDS
+   =============================== */
 
 .card-icon {
-    font-size: 2.4rem;
-    margin-bottom: 1rem;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+
+    filter: drop-shadow(0 0 6px rgba(0, 200, 255, 0.45));
 }
 
+
+
+/* ===============================
+   TITULO & TEXTO DOS CARDS
+   =============================== */
+
 .card h3 {
-    margin: 0;
-    font-size: 1.35rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
 }
 
 .card p {
+    font-size: 1rem;
     opacity: 0.75;
-    font-size: 0.95rem;
 }
 
-/* Desativados */
+
+
+/* ===============================
+   CARDS DESABILITADOS
+   =============================== */
+
 .card.disabled {
-    opacity: 0.4;
+    opacity: 0.35;
     cursor: not-allowed;
+    user-select: none;
+    pointer-events: none;
 }
 
-.card.disabled:hover {
-    transform: none;
+.card .soon {
+    opacity: 0.55 !important;
+}
+
+
+
+/* ===========================================
+   RESPONSIVIDADE
+   =========================================== */
+
+@media (max-width: 720px) {
+    .page-title {
+        font-size: 2.4rem;
+    }
+
+    .welcome-sub {
+        font-size: 1rem;
+    }
 }

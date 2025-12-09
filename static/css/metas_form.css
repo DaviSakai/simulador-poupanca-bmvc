@@ -1,0 +1,173 @@
+/* ==========================================================
+   FORMULÁRIO DE METAS — ESTILOS EXCLUSIVOS
+   ========================================================== */
+
+   .card-form {
+    padding: 34px;
+    border-radius: var(--radius-lg);
+    animation: fadeIn .4s ease;
+}
+
+.form-title {
+    margin: 0 0 4px;
+    font-size: 1.35rem;
+}
+
+.form-desc {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+/* ===================== INPUTS ===================== */
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 22px;
+    padding: 18px;
+    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.floating-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    color: var(--text-main);
+    font-size: 1rem;
+    padding: 6px 0;
+}
+
+.floating-label {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    transition: .22s;
+}
+
+.floating-input:focus + .floating-label,
+.floating-input:not(:placeholder-shown) + .floating-label {
+    top: 6px;
+    font-size: 0.75rem;
+    color: var(--brand-1);
+}
+
+/* ===================== SELECT ===================== */
+
+.select-wrapper {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+.select-input {
+    width: 100%;
+    padding: 18px;
+    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.05);
+    color: var(--text-main);
+    border: 1px solid rgba(255,255,255,0.12);
+    appearance: none;
+}
+
+.select-wrapper::after {
+    content: "▾";
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 16px;
+}
+
+.select-input:focus {
+    border-color: var(--brand-1);
+    box-shadow: 0 0 0 2px rgba(0,200,255,0.25);
+}
+
+/* ===================== GRID ===================== */
+
+.form-split {
+    display: flex;
+    gap: 18px;
+}
+
+.half {
+    flex: 1;
+}
+
+@media (max-width: 600px) {
+    .form-split { flex-direction: column; }
+}
+
+/* ===================== TIP CARD ===================== */
+
+.tip-card {
+    padding: 18px;
+    margin-top: 10px;
+    border-radius: var(--radius-md);
+    background: rgba(0,160,255,0.08);
+    border: 1px solid rgba(0,160,255,0.22);
+}
+
+.tip-card b {
+    color: #7dd3fc;
+}
+
+/* ===================== BOTÕES ===================== */
+
+/* BOTÃO PRIMÁRIO — estilo igual ao login/dashboard */
+.btn.primario {
+    background: linear-gradient(90deg, #1994ff, #735fff);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    padding: 14px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    box-shadow: 0 0 15px rgba(115, 95, 255, 0.35);
+}
+
+.btn.primario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 22px rgba(115, 95, 255, 0.55);
+}
+
+
+/* BOTÃO SECUNDÁRIO — borda azul premium */
+.btn.secundario {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(115, 95, 255, 0.35);
+    color: #dbe4ff;
+    border-radius: 999px;
+    font-weight: 600;
+    padding: 14px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.btn.secundario:hover {
+    background: rgba(115, 95, 255, 0.15);
+    border-color: #735fff;
+}
+
+
+/* ===================== PREVIEW ===================== */
+
+.preview-card {
+    margin-top: 26px;
+    padding: 22px;
+    border-radius: var(--radius-lg);
+    background: rgba(15,23,42,0.65);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px);
+    animation: fadeIn .4s ease;
+}
+
+.preview-card p {
+    font-size: 1rem;
+    margin: 6px 0;
+}

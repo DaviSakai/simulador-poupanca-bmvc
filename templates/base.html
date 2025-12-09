@@ -2,34 +2,40 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Título dinâmico -->
     <title>{% block title %}{% endblock %}</title>
 
+    <!-- CSS global sempre vem antes -->
     <link rel="stylesheet" href="{{ url_for('static', path='css/core.css') }}">
+
+    <!-- CSS específico da página -->
     {% block head %}{% endblock %}
 </head>
 
 <body>
 
-{% if not hide_header %}
-<header class="main-header">
-    <div class="header-left">
-        <a href="/restrito" class="brand">
-            Planejador de <span class="highlight">Metas Financeiras</span>
-        </a>
-    </div>
+    {% if not hide_header %}
+    <header class="main-header">
+        <div class="header-left">
+            <a href="/restrito" class="brand">
+                Planejador de <span class="highlight">Metas Financeiras</span>
+            </a>
+        </div>
 
-    {% if usuario %}
-    <div class="header-right">
-        <span class="user-text">Olá, <b>{{ usuario.username }}</b></span>
-        <a href="/logout" class="logout-btn">Sair</a>
-    </div>
+        {% if usuario %}
+        <div class="header-right">
+            <span class="user-text">Olá, <b>{{ usuario.username }}</b></span>
+            <a href="/logout" class="logout-btn">Sair</a>
+        </div>
+        {% endif %}
+    </header>
     {% endif %}
-</header>
-{% endif %}   {# ←←← ESSA LINHA FECHA O IF CORRETAMENTE #}
 
-<main class="main-content">
-    {% block content %}{% endblock %}
-</main>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
 
 </body>
 </html>

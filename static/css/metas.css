@@ -1,136 +1,369 @@
+/* ==========================================================
+   BMVC — METAS FINANCEIRAS (Glassmorphism Premium)
+   Estilo unificado com o Simulador de Poupança
+   ========================================================== */
+
+   :root {
+    --bg-main: #07090d;
+
+    --glass-bg: rgba(17, 25, 40, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.16);
+    --glass-glow: rgba(0, 200, 255, 0.35);
+
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+
+    --brand-1: #00c6ff;
+    --brand-2: #009dff;
+
+    --radius-md: 14px;
+    --radius-lg: 22px;
+
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* ===========================
+   GLOBAL
+=========================== */
+
 body {
     margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #020617;
-    color: #e5e7eb;
-  }
-  
-  .container {
-    max-width: 960px;
-    margin: 40px auto;
-    padding: 24px;
-    background: #020617;
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    border: 1px solid #1f2937;
-  }
-  
-  .topo {
+    font-family: "Montserrat", sans-serif;
+    background: linear-gradient(135deg, #05070a, #0a0f18, #0d121c);
+    color: var(--text-main);
+}
+
+.page {
+    max-width: 880px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+}
+
+/* ===========================
+   GLASS BASE
+=========================== */
+
+.glass {
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
+}
+
+/* ===========================
+   TOPBAR
+=========================== */
+
+.topbar {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  
-  h1 {
-    font-size: 1.8rem;
-    margin: 0;
-  }
-  
-  .btn {
-    display: inline-flex;
+    padding: 18px 26px;
+    margin-bottom: 26px;
+    border-radius: var(--radius-lg);
+}
+
+.topbar-left {
+    display: flex;
+    gap: 14px;
     align-items: center;
-    justify-content: center;
-    padding: 8px 16px;
+}
+
+.logo-dot {
+    width: 38px;
+    height: 38px;
+    background: radial-gradient(circle at top, #00d1ff, #007bdb);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.7);
+}
+
+.topbar-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.08rem;
+    color: var(--text-muted);
+}
+
+.sim-title {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 800;
+    background: linear-gradient(90deg, #00c6ff, #4dbbff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* ===========================
+   BOTÃO VOLTAR
+=========================== */
+
+.btn-voltar {
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #e2e8f0;
+
+    transition: .2s;
+}
+
+.btn-voltar:hover {
+    background: rgba(0,200,255,0.15);
+    border-color: var(--brand-1);
+}
+
+/* ===========================
+   CARD DO FORMULÁRIO
+=========================== */
+
+.card-form {
+    padding: 34px;
+    border-radius: var(--radius-lg);
+    animation: fadeIn .4s ease;
+}
+
+.form-title {
+    margin: 0 0 4px;
+    font-size: 1.35rem;
+}
+
+.form-desc {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+/* ===========================
+   INPUTS — FLOATING LABEL
+=========================== */
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 22px;
+    padding: 18px 18px;
+    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.floating-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    color: var(--text-main);
+    font-size: 1rem;
+    padding: 6px 0;
+}
+
+.floating-label {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: .22s;
+}
+
+.floating-input:focus + .floating-label,
+.floating-input:not(:placeholder-shown) + .floating-label {
+    top: 6px;
+    font-size: 0.75rem;
+    color: var(--brand-1);
+}
+
+/* ===========================
+   SELECT ESPECIAL
+=========================== */
+
+.select-wrapper {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+.select-input {
+    width: 100%;
+    padding: 18px;
+    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.05);
+    color: var(--text-main);
+    border: 1px solid rgba(255,255,255,0.12);
+    outline: none;
+    appearance: none;
+    font-size: 1rem;
+}
+
+.select-input:focus {
+    border-color: var(--brand-1);
+    box-shadow: 0 0 0 1px rgba(0,200,255,0.4);
+}
+
+.select-label {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    font-size: 0.75rem;
+    color: var(--brand-1);
+}
+
+/* ===========================
+   GRID (inputs lado a lado)
+=========================== */
+
+.form-split {
+    display: flex;
+    gap: 18px;
+}
+
+.half {
+    flex: 1;
+}
+
+@media (max-width: 600px) {
+    .form-split {
+        flex-direction: column;
+    }
+}
+
+/* ===========================
+   DICA SOBRE TAXA
+=========================== */
+
+.tip-card {
+    padding: 18px;
+    margin-top: 10px;
+    border-radius: var(--radius-md);
+    background: rgba(0,160,255,0.08);
+    border: 1px solid rgba(0,160,255,0.22);
+    color: var(--text-main);
+}
+
+.tip-card b {
+    color: #7dd3fc;
+}
+
+/* ===========================
+   BOTÕES
+=========================== */
+
+.btn-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 22px;
+}
+
+.btn {
+    flex: 1;
+    padding: 14px;
     border-radius: 999px;
     border: none;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
-  }
-  
-  .btn.primario {
-    background: linear-gradient(120deg, #0ea5e9, #6366f1);
-    color: white;
-    box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
-  }
-  
-  .btn.secundario {
-    background: #111827;
-    color: #e5e7eb;
-    border: 1px solid #374151;
-  }
-  
-  .btn.pequeno {
-    padding: 4px 10px;
-    font-size: 0.8rem;
-  }
-  
-  .btn.perigo {
-    background: #b91c1c;
-    color: white;
-  }
-  
-  .btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.6);
-  }
-  
-  .tabela-metas {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 8px;
-  }
-  
-  .tabela-metas th,
-  .tabela-metas td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #1f2937;
-    text-align: left;
-    font-size: 0.9rem;
-  }
-  
-  .tabela-metas th {
-    background: #020617;
     font-weight: 600;
-  }
-  
-  .tabela-metas tr:hover {
-    background: rgba(15, 23, 42, 0.8);
-  }
-  
-  .acoes {
-    display: flex;
-    gap: 8px;
-  }
-  
-  .acoes form {
-    margin: 0;
-  }
-  
-  .vazio {
-    margin-top: 16px;
-    font-style: italic;
-    color: #9ca3af;
-  }
-  
-  .form-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  
-  .form-meta label {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    font-size: 0.9rem;
-  }
-  
-  .form-meta input {
-    padding: 8px 10px;
-    border-radius: 8px;
-    border: 1px solid #374151;
-    background: #020617;
-    color: #e5e7eb;
-  }
-  
-  .form-meta input:focus {
-    outline: none;
-    border-color: #0ea5e9;
-    box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.5);
-  }
-  
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+/* Secundário */
+.secundario {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #e2e8f0;
+}
+
+.secundario:hover {
+    background: rgba(0,200,255,0.15);
+    border-color: var(--brand-1);
+}
+
+/* Primário */
+.primario {
+    background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+    color: white;
+    box-shadow: 0 0 18px rgba(0,180,255,0.35);
+}
+
+.primario:hover {
+    box-shadow: 0 0 26px rgba(0,180,255,0.55);
+}
+
+/* ===========================
+   PREVIEW RESULTADO
+=========================== */
+
+.preview-card {
+    margin-top: 26px;
+    padding: 22px;
+    border-radius: var(--radius-lg);
+    background: rgba(15,23,42,0.65);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px);
+    animation: fadeIn .4s ease;
+}
+
+.preview-card p {
+    font-size: 1rem;
+    margin: 6px 0;
+}
+
+/* ===========================
+   ANIMAÇÃO
+=========================== */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Customização total do SELECT ---- */
+
+.select-input {
+  width: 100%;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.05);
+  color: var(--text-main);
+  border: 1px solid rgba(255,255,255,0.12);
+  outline: none;
+  appearance: none;
+  font-size: 1rem;
+  position: relative;
+}
+
+/* seta customizada */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "▾";
+  font-size: 16px;
+  color: var(--text-muted);
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* quando o select está aberto */
+.select-input:focus {
+  border-color: var(--brand-1);
+  box-shadow: 0 0 0 2px rgba(0,200,255,0.25);
+}
+
+/* ---- Forçar o menu dropdown a ficar dark (Chrome, Edge) ---- */
+select option {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+/* ---- Firefox ---- */
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #fff;
+}

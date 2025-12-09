@@ -1,23 +1,51 @@
-/* Fundo, fonte e reset */
+/* ============================================================
+   FUNDO GLOBAL + CORREÇÃO DE ANIMAÇÕES
+   ============================================================ */
+
+/* Remove fundo do body (agora o fundo é o ::before) */
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(145deg, #0c1117, #0a0e14 70%);
     font-family: "Inter", sans-serif;
     color: #ffffff;
+
+    position: relative;
+    overflow-x: hidden;
 }
 
-/* ------------------------------
-   HEADER GLOBAL PREMIUM
--------------------------------- */
+/* Fundo colocado em camada separada para liberar animações */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background: linear-gradient(145deg, #0c1117, #0a0e14 70%);
+    background-attachment: fixed;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   HEADER GLOBAL 
+   ============================================================ */
+
 .main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     padding: 1.4rem 2.5rem;
     border-bottom: 1px solid rgba(255,255,255,0.07);
+
     background: rgba(255,255,255,0.03);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .brand {
@@ -59,16 +87,29 @@ body {
     background: #e64646;
 }
 
-/* ------------------------------
+
+/* ============================================================
    ÁREA PRINCIPAL DAS PÁGINAS
--------------------------------- */
+   ============================================================ */
+
 .main-content {
     padding: 2.5rem 2.8rem;
+
+    /* animação suave para entrar */
+    opacity: 0;
+    animation: fadeContent 0.45s ease forwards;
 }
 
-/* ------------------------------
-   TITULOS GERAIS PADRONIZADOS
--------------------------------- */
+@keyframes fadeContent {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ============================================================
+   TÍTULOS GERAIS
+   ============================================================ */
+
 .page-title {
     font-size: 2.8rem;
     font-weight: 700;
@@ -79,4 +120,22 @@ body {
     background: linear-gradient(90deg, #00c2ff, #4cc9f0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+
+/* ============================================================
+   AJUSTES E RESET GLOBAL 
+   ============================================================ */
+
+a {
+    transition: 0.2s ease;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+input, button, textarea {
+    outline: none;
 }

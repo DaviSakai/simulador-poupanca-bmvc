@@ -1,91 +1,125 @@
 {% extends "base.html" %}
 {% set hide_header = True %}
-{% block title %}Criar conta – Planejador Financeiro{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/auth.css') }}">
+{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', path='css/auth.css') }}">
-<script defer src="{{ url_for('static', path='js/auth.js') }}"></script>
 
-<div class="auth-container">
+<!-- PARTÍCULAS -->
+<div class="particles"></div>
 
-    <!-- ESQUERDA -->
-    <section class="auth-info">
-        <div class="info-content">
+<div class="auth-wrapper">
 
-            <h1 class="hero-title">
-                Comece sua <span>Jornada Financeira</span><br>
-                com organização e clareza.
-            </h1>
+    <!-- LADO ESQUERDO -->
+    <div class="auth-left premium-animate-left">
+        <h1 class="premium-title">
+            Comece sua <span>Jornada Financeira</span><br>
+            com organização e clareza.
+        </h1>
 
-            <p class="hero-subtitle">
-                Crie sua conta gratuitamente e comece a estruturar metas,
-                acompanhar patrimônio e projetar crescimento financeiro.
-            </p>
+        <p class="premium-subtitle">
+            Crie sua conta gratuitamente e comece a estruturar metas,
+            acompanhar patrimônio e projetar crescimento financeiro.
+        </p>
 
-            <div class="key-points">
-                <div class="key-card">
-                    <span class="icon">💰</span>
-                    <span>Gestão financeira simplificada</span>
-                </div>
-                <div class="key-card">
-                    <span class="icon">🧠</span>
-                    <span>Insights inteligentes personalizados</span>
-                </div>
-                <div class="key-card">
-                    <span class="icon">🔒</span>
-                    <span>Segurança com criptografia</span>
-                </div>
+        <div class="feature-list">
+            <div class="feature-card">
+                <span class="icon">🎯</span>
+                Metas inteligentes e automáticas
             </div>
 
+            <div class="feature-card">
+                <span class="icon">🔒</span>
+                Segurança e experiência profissional
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">📈</span>
+                Calculadora financeira integrada
+            </div>
         </div>
-    </section>
+    </div>
 
-    <!-- DIREITA -->
-    <section class="auth-form">
-        <div class="form-card">
+    <!-- CARD DIREITO – CADASTRO -->
+    <div class="auth-card tilt-card">
 
-            <h2 class="form-title">Criar conta</h2>
+        <h2 class="premium-form-title">Criar conta</h2>
+
+        <form method="POST" class="premium-form">
+
+            <label>Usuário</label>
+            <input type="text" name="username" class="premium-input"
+                   placeholder="Escolha um nome de usuário" required>
+
+            <label>Senha</label>
+            <div class="password-box">
+                <input type="password" id="password" name="password" class="premium-input"
+                       placeholder="Crie uma senha segura" required>
+                <span class="toggle-password">👁️</span>
+            </div>
 
             {% if erro %}
-                <div class="alert">{{ erro }}</div>
+            <p class="auth-error">{{ erro }}</p>
             {% endif %}
 
-            <form method="POST" action="/cadastro">
+            <button type="submit" id="login-button" class="premium-btn">Criar conta</button>
+        </form>
 
-                <div class="input-group">
-                    <label for="username">Usuário</label>
-                    <input
-                        id="username"
-                        name="username"
-                        type="text"
-                        required
-                        placeholder="Escolha um usuário">
-                </div>
-
-                <div class="input-group">
-                    <label for="password">Senha</label>
-                    <div class="password-wrapper">
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            required
-                            placeholder="Crie uma senha">
-                        <button type="button" class="toggle-password" onclick="togglePassword()">👁</button>
-                    </div>
-                </div>
-
-                <button class="btn-primary" type="submit">Criar conta</button>
-
-                <p class="form-footer">
-                    Já possui conta?
-                    <a href="/login">Entrar</a>
-                </p>
-
-            </form>
-
-        </div>
-    </section>
+        <p class="premium-switch">
+            Já possui conta? <a href="/login">Entrar</a>
+        </p>
+    </div>
 
 </div>
+
+<!-- AUTH JS -->
+<script src="{{ url_for('static', path='js/auth.js') }}"></script>
+
+<!-- PARTÍCULAS JS (versão refinada) -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector(".particles");
+    
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement("div");
+            p.className = "particle";
+    
+            const size = 3 + Math.random() * 5;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+    
+            p.style.left = `${Math.random() * 100}%`;
+            p.style.animationDuration = `${10 + Math.random() * 12}s`;
+            p.style.animationDelay = `-${Math.random() * 20}s`;
+    
+            container.appendChild(p);
+        }
+    });
+    </script>
+    
+
+<!-- TILT JS -->
+<script>
+const card = document.querySelector(".tilt-card");
+
+document.addEventListener("mousemove", (e) => {
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const rx = -(y - rect.height / 2) / 20;
+    const ry = (x - rect.width / 2) / 20;
+
+    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+});
+
+document.addEventListener("mouseleave", () => {
+    if (card) card.style.transform = "rotateX(0) rotateY(0)";
+});
+</script>
+
 {% endblock %}

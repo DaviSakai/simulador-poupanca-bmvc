@@ -1,0 +1,148 @@
+/* ==========================================================
+   BMVC — BASE DE ESTILOS PARA TODAS AS PÁGINAS DE METAS
+   Inclui: cores, glass, botões, topbar, tipografia
+   ========================================================== */
+
+   :root {
+    --bg-main: #07090d;
+
+    --glass-bg: rgba(17, 25, 40, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.16);
+    --glass-glow: rgba(0, 200, 255, 0.35);
+
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+
+    --brand-1: #00c6ff;
+    --brand-2: #009dff;
+
+    --radius-md: 14px;
+    --radius-lg: 22px;
+
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* =========================== GLOBAL =========================== */
+
+body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    background: linear-gradient(135deg, #05070a, #0a0f18, #0d121c);
+    color: var(--text-main);
+}
+
+.page {
+    max-width: 880px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+}
+
+/* =========================== GLASS =========================== */
+
+.glass {
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
+}
+
+/* =========================== TOPBAR =========================== */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 26px;
+    margin-bottom: 26px;
+    border-radius: var(--radius-lg);
+}
+
+.topbar-left {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.logo-dot {
+    width: 38px;
+    height: 38px;
+    background: radial-gradient(circle at top, #00d1ff, #007bdb);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.7);
+}
+
+.topbar-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.08rem;
+    color: var(--text-muted);
+}
+
+.sim-title {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 800;
+    background: linear-gradient(90deg, #00c6ff, #4dbbff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* =========================== BOTÃO VOLTAR =========================== */
+
+.btn-voltar {
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #e2e8f0;
+
+    transition: .2s;
+}
+
+.btn-voltar:hover {
+    background: rgba(0,200,255,0.15);
+    border-color: var(--brand-1);
+}
+
+/* =========================== BOTÕES GERAIS =========================== */
+
+.btn {
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: .2s;
+}
+
+.btn-primario {
+    background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0,180,255,0.35);
+}
+
+.btn-primario:hover {
+    box-shadow: 0 0 28px rgba(0,180,255,0.55);
+}
+
+.btn-secundario {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #e2e8f0;
+}
+
+.btn-secundario:hover {
+    background: rgba(0,200,255,0.15);
+    border-color: var(--brand-1);
+}
+
+/* =========================== ANIMAÇÕES =========================== */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
