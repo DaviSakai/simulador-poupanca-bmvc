@@ -94,9 +94,8 @@ simulador-poupanca-bmvc/
 - Registra controllers
 - Gerencia sessão, autenticação e rotas
 - Não possui lógica de negócio
-```bash
 
----
+
 ```
 ## 📌 Funcionalidades
 ```bash
