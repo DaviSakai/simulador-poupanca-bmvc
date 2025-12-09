@@ -5,6 +5,10 @@ from pathlib import Path
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 
+# Controllers
+from controller.simulador_controller import router as simulador_router
+
+# Models / Repositórios
 from models import (
     MetaPoupancaRepository,
     autenticar_usuario,
@@ -18,10 +22,8 @@ from models import (
 
 app = FastAPI()
 
-# Sessão para login persistente
 app.add_middleware(SessionMiddleware, secret_key="chave-super-secreta-123")
 
-# Diretórios
 BASE_DIR = Path(__file__).resolve().parent
 
 # Static (CSS, JS)
@@ -33,53 +35,34 @@ templates = Jinja2Templates(directory="templates")
 # Repositório de metas
 meta_repo = MetaPoupancaRepository()
 
+# Controller do simulador (rota "/")
+app.include_router(simulador_router)
+
 
 # ============================================================
 # 🔵 2. FUNÇÕES AUXILIARES DE AUTENTICAÇÃO
 # ============================================================
 
 def usuario_logado(request: Request):
-    """Retorna o usuário logado (ou None)."""
     return request.session.get("user")
 
 
 def proteger(request: Request):
-    """Redireciona para /login caso o usuário não esteja autenticado."""
     if not usuario_logado(request):
         return RedirectResponse(url="/login", status_code=303)
 
 
 # ============================================================
-# 🔵 3. ROTAS PÚBLICAS (Simulador + Login + Cadastro)
+# 🔵 3. LOGIN / CADASTRO
 # ============================================================
 
-# --- PÁGINA INICIAL (Simulador livre) ---
-@app.get("/", response_class=HTMLResponse)
-def abrir_simulador():
-    html_path = BASE_DIR / "view" / "simulador.html"
-    try:
-        return html_path.read_text(encoding="utf-8")
-    except FileNotFoundError:
-        return HTMLResponse(
-            content=f"<h2>Erro: simulador não encontrado em {html_path}</h2>",
-            status_code=500
-        )
-
-
-# =============================
-# 🔐 LOGIN
-# =============================
 @app.get("/login")
 async def login_get(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
 
 @app.post("/login")
-async def login_post(
-    request: Request,
-    username: str = Form(...),
-    password: str = Form(...),
-):
+async def login_post(request: Request, username: str = Form(...), password: str = Form(...)):
     usuario = autenticar_usuario(username, password)
 
     if not usuario:
@@ -89,9 +72,7 @@ async def login_post(
             status_code=401
         )
 
-    # Salva usuário na sessão
     request.session["user"] = usuario.model_dump()
-
     return RedirectResponse(url="/restrito", status_code=303)
 
 
@@ -101,36 +82,24 @@ async def logout(request: Request):
     return RedirectResponse(url="/login", status_code=303)
 
 
-# =============================
-# 🟦 CADASTRO
-# =============================
 @app.get("/cadastro")
 async def cadastro_get(request: Request):
     return templates.TemplateResponse("cadastro.html", {"request": request})
 
 
 @app.post("/cadastro")
-async def cadastro_post(
-    request: Request,
-    username: str = Form(...),
-    password: str = Form(...),
-):
-
-    # Verifica se o usuário já existe
+async def cadastro_post(request: Request, username: str = Form(...), password: str = Form(...)):
     if buscar_usuario(username):
         return templates.TemplateResponse(
-            "cadastro.html",
-            {"request": request, "erro": "Usuário já existe."}
+            "cadastro.html", {"request": request, "erro": "Usuário já existe."}
         )
 
-    # Cria e salva o usuário
     criar_usuario(username, password)
-
     return RedirectResponse(url="/login", status_code=303)
 
 
 # ============================================================
-# 🔵 4. ÁREA RESTRITA (Dashboard protegido)
+# 🔵 4. ÁREA RESTRITA
 # ============================================================
 
 @app.get("/restrito")
@@ -147,10 +116,9 @@ async def restrito(request: Request):
 
 
 # ============================================================
-# 🔵 5. CRUD DE METAS (totalmente protegido)
+# 🔵 5. CRUD DE METAS
 # ============================================================
 
-# --- LISTAR METAS ---
 @app.get("/metas", response_class=HTMLResponse)
 def listar_metas(request: Request):
     if proteger(request):
@@ -163,7 +131,6 @@ def listar_metas(request: Request):
     )
 
 
-# --- FORM NOVA META ---
 @app.get("/metas/nova", response_class=HTMLResponse)
 def form_nova_meta(request: Request):
     if proteger(request):
@@ -175,16 +142,13 @@ def form_nova_meta(request: Request):
     )
 
 
-# --- CRIAR META ---
 @app.post("/metas/criar")
-def criar_meta(
-    request: Request,
-    nome: str = Form(...),
-    categoria: str = Form(...),
-    valor_mensal: float = Form(...),
-    qt_meses: int = Form(...),
-    taxa_juros: float = Form(...),
-):
+def criar_meta(request: Request,
+               nome: str = Form(...),
+               categoria: str = Form(...),
+               valor_mensal: float = Form(...),
+               qt_meses: int = Form(...),
+               taxa_juros: float = Form(...)):
     if proteger(request):
         return proteger(request)
 
@@ -192,7 +156,6 @@ def criar_meta(
     return RedirectResponse(url="/metas", status_code=303)
 
 
-# --- EDITAR META ---
 @app.get("/metas/{meta_id}/editar", response_class=HTMLResponse)
 def form_editar_meta(meta_id: int, request: Request):
     if proteger(request):
@@ -208,17 +171,14 @@ def form_editar_meta(meta_id: int, request: Request):
     )
 
 
-# --- ATUALIZAR META ---
 @app.post("/metas/{meta_id}/atualizar")
-def atualizar_meta(
-    meta_id: int,
-    request: Request,
-    nome: str = Form(...),
-    categoria: str = Form(...),
-    valor_mensal: float = Form(...),
-    qt_meses: int = Form(...),
-    taxa_juros: float = Form(...),
-):
+def atualizar_meta(meta_id: int,
+                   request: Request,
+                   nome: str = Form(...),
+                   categoria: str = Form(...),
+                   valor_mensal: float = Form(...),
+                   qt_meses: int = Form(...),
+                   taxa_juros: float = Form(...)):
     if proteger(request):
         return proteger(request)
 
@@ -226,7 +186,6 @@ def atualizar_meta(
     return RedirectResponse(url="/metas", status_code=303)
 
 
-# --- EXCLUIR META ---
 @app.post("/metas/{meta_id}/excluir")
 def excluir_meta(meta_id: int, request: Request):
     if proteger(request):
