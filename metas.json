@@ -22,5 +22,13 @@
         "valor_mensal": 9000000.0,
         "qt_meses": 9,
         "taxa_juros": 0.19
+    },
+    {
+        "id": 5,
+        "nome": "Carro",
+        "categoria": "longo",
+        "valor_mensal": 2000.0,
+        "qt_meses": 60,
+        "taxa_juros": 8.0
     }
 ]

@@ -13,18 +13,17 @@ O **Planejador de Metas Financeiras** permite que o usuário:
 - Simule crescimento com aportes mensais 🧮
 - Visualize o impacto dos juros compostos 📈
 - Organize sua vida financeira de forma profissional e prática 🧠
+- Obtenha atualização instantânea quando metas são alteradas via WebSocket ⚡
 
 Além disso, conta com um sistema seguro de login, área restrita e interface inspirada em grandes plataformas financeiras.
 
 O sistema inclui:
 
 - Login, cadastro e sessão persistente 🔐
-
 - CRUD completo de metas financeiras 🗂️
-
 - Persistência em arquivos JSON 📦
-
 - Interface moderna inspirada em plataformas reais 🎨
+- WebSocket para atualização em tempo real 🔌
 ---
 
 ## 🧱 Estrutura do Projeto
@@ -50,14 +49,14 @@ simulador-poupanca-bmvc/
 │   ├── cadastro.html            
 │   ├── restrito.html            
 │   └── metas/
-│       ├── listar.html          
+│       ├── listar.html          → Página com atualização em tempo real (WebSocket)
 │       └── form.html            
 │
 ├── static/
 │   ├── css/
 │   │   ├── core.css             
 │   │   ├── auth.css             
-│   │   └── metas.css            
+│   │   └── metas.css            → Cliente WebSocket para metas
 │   └── js/
 │       └── simulador.js         
 │
@@ -94,6 +93,8 @@ simulador-poupanca-bmvc/
 - Registra controllers
 - Gerencia sessão, autenticação e rotas
 - Não possui lógica de negócio
+- Implementa WebSocket para metas (BMVC IV)
+
 
 
 ```
@@ -114,10 +115,16 @@ simulador-poupanca-bmvc/
 - Dashboard do usuário
 - CRUD completo de metas financeiras
 
+# WebSocket 
+- Atualização em tempo real da lista de metas
+- Broadcast sempre que uma meta é criada, editada ou excluída
+- Reconstrução instantânea da interface em múltiplas abas
+
 # Técnicas Utilizadas
 
 - FastAPI
 - Jinja2 Templates
+- WebSocket nativo do FastAPI
 - Repository Pattern
 - Arquitetura BMVC
 - Persistência JSON

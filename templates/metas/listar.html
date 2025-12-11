@@ -5,6 +5,53 @@
 {% block head %}
 <link rel="stylesheet" href="/static/css/metas_base.css?v=1">
 <link rel="stylesheet" href="/static/css/metas_lista.css?v=1">
+
+<!-- JS do WebSocket -->
+<script defer src="/static/js/metas.js"></script>
+
+<style>
+    /* Indicador WebSocket */
+    .ws-status-box {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+
+    .ws-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: red;
+        box-shadow: 0 0 6px red;
+        transition: 0.2s;
+    }
+    .ws-dot.online {
+        background: #00c853;
+        box-shadow: 0 0 6px #00c853;
+    }
+
+    /* Resumo */
+    .resumo-box {
+        padding: 18px 22px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        background: var(--glass-bg);
+        box-shadow: var(--glass-shadow);
+    }
+    .resumo-title {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+    .resumo-line {
+        font-size: 0.95rem;
+        margin: 3px 0;
+    }
+</style>
+
 {% endblock %}
 
 {% block content %}
@@ -24,6 +71,26 @@
         <a href="/restrito" class="btn-voltar">← Dashboard</a>
     </div>
 
+    <!-- STATUS DO WEBSOCKET -->
+    <div class="ws-status-box">
+        <div id="ws-dot" class="ws-dot"></div>
+        <span id="ws-text">Conectando...</span>
+    </div>
+
+    <!-- RESUMO EM TEMPO REAL -->
+    <div class="glass resumo-box">
+        <div class="resumo-title">Resumo em tempo real</div>
+        <div class="resumo-line">
+            Total de metas: <b><span id="resumo-total">{{ metas|length }}</span></b>
+        </div>
+        <div class="resumo-line">
+            Soma mensal: <b>R$ <span id="resumo-mensal">0,00</span></b>
+        </div>
+        <div class="resumo-line">
+            Soma total projetada: <b>R$ <span id="resumo-total-proj">0,00</span></b>
+        </div>
+    </div>
+
     <!-- TÍTULO -->
     <h2 class="list-title">Metas Financeiras</h2>
     <p class="list-desc">Gerencie, edite e consulte todas as suas metas.</p>
@@ -31,11 +98,11 @@
     <!-- BOTÃO CRIAR -->
     <a href="/metas/nova" class="btn-nova">+ Criar nova meta</a>
 
-    <!-- GRID -->
-    <div class="cards-grid">
+    <!-- GRID DE CARDS -->
+    <div id="metas-grid" class="cards-grid">
 
         {% for meta in metas %}
-        <div class="card glass">
+        <div class="card glass" data-id="{{ meta.id }}">
 
             <span class="tag {{ meta.categoria }}">
                 {% if meta.categoria == 'curto' %}CURTO PRAZO

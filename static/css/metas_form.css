@@ -171,3 +171,56 @@
     font-size: 1rem;
     margin: 6px 0;
 }
+
+/* ===== ESTILO DARK PARA O SELECT ===== */
+
+select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    background: #15181e; /* fundo dark */
+    border: 1px solid #3a3f47;
+    color: #e7e7e7;
+    font-size: 1rem;
+    outline: none;
+    appearance: none;
+    transition: 0.2s;
+}
+
+/* Glow ao focar */
+select:focus {
+    border-color: #0be7c2;
+    box-shadow: 0 0 8px rgba(0, 255, 210, 0.4);
+}
+
+/* Seta do select */
+select::-ms-expand {
+    display: none;
+}
+
+/* ===== DROPDOWN DARK ===== */
+
+/* Chrome / Edge / Safari */
+select option {
+    background-color: #111317; /* cor do dropdown */
+    color: #e7e7e7;
+}
+
+/* Firefox exige isso separado */
+@-moz-document url-prefix() {
+    select {
+        background-color: #15181e;
+        color: #e7e7e7;
+    }
+
+    select option {
+        background-color: #111317 !important;
+        color: #e7e7e7 !important;
+    }
+}
+
+/* Hover na opção (Chrome / Edge) */
+select option:hover {
+    background-color: #0be7c2 !important;
+    color: #000 !important;
+}
